@@ -24,16 +24,22 @@
 
                                   <v-divider></v-divider>
                               </v-list>
+                              
                               <v-list two-line="" subheader="">
                                   <v-list-item>
-                                      <v-text-field
-                                              label="N° Expediente"
-                                              outlined
-                                      ></v-text-field>
-                                      <v-text-field
-                                              label="Avance %"
-                                              outlined
-                                      ></v-text-field>
+                                      <v-autocomplete
+                                        v-model="numexpediente"
+                                        :items="dataexp"
+                                        filled
+                                        chips
+                                        color="blue-grey lighten-2"
+                                        label="Expediente"
+                                        item-text="expediente"
+                                        item-value="expediente"
+                                        
+                                        >                                    
+                                      </v-autocomplete>
+                                      
                                   </v-list-item>
                               </v-list>
                               <v-list subheader="" class="mt-n4">
@@ -41,12 +47,17 @@
                                       <v-row>
                                           <v-col>
                                               <v-text-field
+                                                    v-model="folios"
                                                       label="Cant. Folios"
                                                       outlined
                                               ></v-text-field>
                                           </v-col>
                                           <v-col>
-
+                                            <v-text-field
+                                                v-model="avance"
+                                                label="Avance %"
+                                                outlined
+                                            ></v-text-field>
                                           </v-col>
                                       </v-row>
 
@@ -56,6 +67,7 @@
                                       <v-row>
                                         <v-col>
                                           <v-text-field
+                                            v-model="estado"
                                                   label="Estado del proceso"
                                                   outlined
                                           ></v-text-field>
@@ -97,12 +109,51 @@ export default {
         type: 'trend',
         autoLineWidth: false,
         arrayEvents: null,
-        date2: new Date().toISOString().substr(0,10)
+        date2: new Date().toISOString().substr(0,10),
+        numexpediente: "",
+        folios: "",
+        avance: 0,
+        estado: "",
+        dataexp: [
+            {expediente:"268-1990",materia:"penal",cantidad:64,porcentaje:"10%",estado:"pendiente"},
+            {expediente:"268-1991",materia:"penal",cantidad:150,porcentaje:"3%",estado:"pendiente"},
+            {expediente:"268-1992",materia:"penal",cantidad:352,porcentaje:"20%",estado:"pendiente"},
+            {expediente:"268-1993",materia:"penal",cantidad:450,porcentaje:"70%",estado:"pendiente"},
+            {expediente:"268-1994",materia:"penal",cantidad:451,porcentaje:"20%",estado:"pendiente"},
+            {expediente:"268-1995",materia:"penal",cantidad:452,porcentaje:"85%",estado:"pendiente"},
+            {expediente:"268-1996",materia:"penal",cantidad:453,porcentaje:"30%",estado:"pendiente"},
+            {expediente:"268-1997",materia:"penal",cantidad:504,porcentaje:"20%",estado:"pendiente"},
+            {expediente:"268-1998",materia:"penal",cantidad:455,porcentaje:"6%",estado:"pendiente"},
+            {expediente:"268-1999",materia:"penal",cantidad:456,porcentaje:"20%",estado:"pendiente"},
+            {expediente:"268-2000",materia:"penal",cantidad:250,porcentaje:"40%",estado:"pendiente"},
+            {expediente:"268-2001",materia:"penal",cantidad:268,porcentaje:"20%",estado:"pendiente"},
+            {expediente:"268-2002",materia:"penal",cantidad:385,porcentaje:"25%",estado:"pendiente"},
+            {expediente:"268-2003",materia:"penal",cantidad:698,porcentaje:"20%",estado:"pendiente"},
+            {expediente:"268-2004",materia:"penal",cantidad:345,porcentaje:"20%",estado:"pendiente"},
+            {expediente:"268-2005",materia:"penal",cantidad:245,porcentaje:"18%",estado:"pendiente"},
+            {expediente:"268-2006",materia:"penal",cantidad:184,porcentaje:"20%",estado:"pendiente"},
+            {expediente:"268-2007",materia:"penal",cantidad:365,porcentaje:"5%",estado:"pendiente"},
+            {expediente:"268-2008",materia:"penal",cantidad:325,porcentaje:"20%",estado:"pendiente"},
+            {expediente:"268-2009",materia:"penal",cantidad:365,porcentaje:"4%",estado:"pendiente"},
+            {expediente:"268-2010",materia:"penal",cantidad:185,porcentaje:"20%",estado:"pendiente"},
+            {expediente:"268-2011",materia:"penal",cantidad:145,porcentaje:"4%",estado:"pendiente"},
+        ]
     }),
     computed: {
         theme(){
             return this.$vuetify.theme.dark ? "dark" : "light";
         }
+    },
+    watch: {      
+      numexpediente(val){
+          if(val.length > 0){
+              var exp = this.dataexp.filter(datae => datae.expediente==val)
+              this.folios = exp[0].cantidad
+              this.avance = exp[0].porcentaje
+              this.estado = exp[0].estado
+              console.log(this.folios)
+          }
+      }
     },
     mounted() {
         this.arrayEvents = [...Array(6).map(()=> {
