@@ -7,7 +7,8 @@
                       <v-flex>
                           <v-card class="ma-2 text-center mt-8" shaped elevation="10">
                                 <v-avatar class="mt-n7" size="60" elevation="10">
-                                    <img src="../assets/logo.png" alt="">
+                                    <!--<img src="../assets/logo.png" alt="">-->
+                                    <img src="../assets/logo2.svg" alt="" width="85px"/>
                                 </v-avatar>
                                 <v-card-title class="layout justify-center">El CODEX</v-card-title>
                                 <v-card-subtitle class="layout justify-center">Tramitación</v-card-subtitle>
@@ -72,7 +73,9 @@
                                                   outlined
                                           ></v-text-field>
                                         </v-col>
-                                        <v-col></v-col>
+                                        <v-col style="text-align:right">
+                                            <img src="../assets/dama.png" alt="" width="125px">
+                                        </v-col>
                                       </v-row>
 
                                   </v-list-item>
